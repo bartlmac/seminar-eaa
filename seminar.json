@@ -1,0 +1,11 @@
+{
+  "source": "sources/Tariff_Calculator.xlsm",
+  "manifest": "derived/excel/manifest.json",
+  "extract": "derived/knowledge.json",
+  "report": "derived/knowledge.html",
+  "tbox": "ontology/tbox.json",
+  "extraction_schema": "ontology/extraction.schema.json",
+  "tbox_version": "1.0.0",
+  "reference_workbooks": "tests/reference_workbooks",
+  "reference_run": "derived/references"
+}

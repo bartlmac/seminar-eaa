@@ -1,0 +1,420 @@
+{
+  "$defs": {
+    "Dataset": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "evidence"
+      ],
+      "title": "Dataset",
+      "type": "object"
+    },
+    "Evidence": {
+      "additionalProperties": false,
+      "properties": {
+        "file": {
+          "description": "Project-relative path to a hashed export artifact.",
+          "minLength": 1,
+          "title": "File",
+          "type": "string"
+        },
+        "location": {
+          "description": "Sheet!Cell or Sheet!Range, defined name, or VBA function and line numbers.",
+          "minLength": 1,
+          "title": "Location",
+          "type": "string"
+        }
+      },
+      "required": [
+        "file",
+        "location"
+      ],
+      "title": "Evidence",
+      "type": "object"
+    },
+    "Formula": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "target": {
+          "description": "Output or helper; helper names do not extend the T-Box.",
+          "minLength": 1,
+          "title": "Target",
+          "type": "string"
+        },
+        "latex": {
+          "minLength": 1,
+          "title": "Latex",
+          "type": "string"
+        },
+        "symbols": {
+          "items": {
+            "$ref": "#/$defs/Symbol"
+          },
+          "minItems": 1,
+          "title": "Symbols",
+          "type": "array"
+        },
+        "worksheet_formulas": {
+          "items": {
+            "$ref": "#/$defs/WorksheetFormula"
+          },
+          "minItems": 1,
+          "title": "Worksheet Formulas",
+          "type": "array"
+        },
+        "evidence": {
+          "description": "Include VBA evidence for called functions.",
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "conditions": {
+          "minLength": 1,
+          "title": "Conditions",
+          "type": "string"
+        },
+        "timing": {
+          "minLength": 1,
+          "title": "Timing",
+          "type": "string"
+        },
+        "status": {
+          "enum": [
+            "documented",
+            "incomplete"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "open_questions": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Open Questions",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "target",
+        "latex",
+        "symbols",
+        "worksheet_formulas",
+        "evidence",
+        "conditions",
+        "timing",
+        "status"
+      ],
+      "title": "Formula",
+      "type": "object"
+    },
+    "Mapping": {
+      "additionalProperties": false,
+      "properties": {
+        "quantity": {
+          "minLength": 1,
+          "title": "Quantity",
+          "type": "string"
+        },
+        "role": {
+          "enum": [
+            "input",
+            "parameter",
+            "table_input",
+            "scalar_output",
+            "trajectory_output"
+          ],
+          "title": "Role",
+          "type": "string"
+        },
+        "source_name": {
+          "default": "",
+          "title": "Source Name",
+          "type": "string"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "note": {
+          "default": "",
+          "title": "Note",
+          "type": "string"
+        }
+      },
+      "required": [
+        "quantity",
+        "role",
+        "evidence"
+      ],
+      "title": "Mapping",
+      "type": "object"
+    },
+    "OpenQuestion": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "question": {
+          "minLength": 1,
+          "title": "Question",
+          "type": "string"
+        },
+        "impact": {
+          "minLength": 1,
+          "title": "Impact",
+          "type": "string"
+        },
+        "blocks_porting": {
+          "title": "Blocks Porting",
+          "type": "boolean"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        }
+      },
+      "required": [
+        "id",
+        "question",
+        "impact",
+        "blocks_porting",
+        "evidence"
+      ],
+      "title": "OpenQuestion",
+      "type": "object"
+    },
+    "Rule": {
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "minLength": 1,
+          "title": "Id",
+          "type": "string"
+        },
+        "description": {
+          "minLength": 1,
+          "title": "Description",
+          "type": "string"
+        },
+        "affects": {
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "title": "Affects",
+          "type": "array"
+        },
+        "evidence": {
+          "items": {
+            "$ref": "#/$defs/Evidence"
+          },
+          "minItems": 1,
+          "title": "Evidence",
+          "type": "array"
+        },
+        "confidence": {
+          "enum": [
+            "direct_evidence",
+            "interpretation"
+          ],
+          "title": "Confidence",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "description",
+        "affects",
+        "evidence",
+        "confidence"
+      ],
+      "title": "Rule",
+      "type": "object"
+    },
+    "Symbol": {
+      "additionalProperties": false,
+      "properties": {
+        "symbol": {
+          "minLength": 1,
+          "title": "Symbol",
+          "type": "string"
+        },
+        "meaning": {
+          "minLength": 1,
+          "title": "Meaning",
+          "type": "string"
+        },
+        "reference": {
+          "description": "T-Box field, local helper, constant or table lookup.",
+          "minLength": 1,
+          "title": "Reference",
+          "type": "string"
+        }
+      },
+      "required": [
+        "symbol",
+        "meaning",
+        "reference"
+      ],
+      "title": "Symbol",
+      "type": "object"
+    },
+    "WorksheetFormula": {
+      "additionalProperties": false,
+      "properties": {
+        "source_formula": {
+          "pattern": "^=",
+          "title": "Source Formula",
+          "type": "string"
+        },
+        "evidence": {
+          "$ref": "#/$defs/Evidence"
+        },
+        "applies_to": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Optional Sheet!A1:A50 family; every formula must be checked by relative translation.",
+          "title": "Applies To"
+        }
+      },
+      "required": [
+        "source_formula",
+        "evidence"
+      ],
+      "title": "WorksheetFormula",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": "endowment.knowledge.v1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "tbox_version": {
+      "const": "1.0.0",
+      "title": "Tbox Version",
+      "type": "string"
+    },
+    "source_file": {
+      "minLength": 1,
+      "title": "Source File",
+      "type": "string"
+    },
+    "source_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "title": "Source Sha256",
+      "type": "string"
+    },
+    "mappings": {
+      "items": {
+        "$ref": "#/$defs/Mapping"
+      },
+      "minItems": 1,
+      "title": "Mappings",
+      "type": "array"
+    },
+    "rules": {
+      "items": {
+        "$ref": "#/$defs/Rule"
+      },
+      "minItems": 1,
+      "title": "Rules",
+      "type": "array"
+    },
+    "datasets": {
+      "items": {
+        "$ref": "#/$defs/Dataset"
+      },
+      "minItems": 1,
+      "title": "Datasets",
+      "type": "array"
+    },
+    "formulas": {
+      "items": {
+        "$ref": "#/$defs/Formula"
+      },
+      "minItems": 1,
+      "title": "Formulas",
+      "type": "array"
+    },
+    "open_questions": {
+      "items": {
+        "$ref": "#/$defs/OpenQuestion"
+      },
+      "title": "Open Questions",
+      "type": "array"
+    },
+    "limitations": {
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "title": "Limitations",
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "tbox_version",
+    "source_file",
+    "source_sha256",
+    "mappings",
+    "rules",
+    "datasets",
+    "formulas",
+    "open_questions",
+    "limitations"
+  ],
+  "title": "KnowledgeExtract",
+  "type": "object"
+}

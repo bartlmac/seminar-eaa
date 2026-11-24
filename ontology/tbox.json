@@ -1,0 +1,431 @@
+{
+  "$defs": {
+    "Assumptions": {
+      "additionalProperties": false,
+      "properties": {
+        "tariff": {
+          "$ref": "#/$defs/Tariff"
+        },
+        "mortality": {
+          "items": {
+            "$ref": "#/$defs/MortalityRow"
+          },
+          "minItems": 1,
+          "title": "Mortality",
+          "type": "array"
+        }
+      },
+      "required": [
+        "tariff",
+        "mortality"
+      ],
+      "title": "Assumptions",
+      "type": "object"
+    },
+    "MortalityRow": {
+      "additionalProperties": false,
+      "properties": {
+        "table_id": {
+          "description": "Table identifier",
+          "minLength": 1,
+          "role": "table_input",
+          "title": "Table identifier",
+          "type": "string",
+          "unit": "identifier"
+        },
+        "sex": {
+          "description": "Sex",
+          "enum": [
+            "M",
+            "F"
+          ],
+          "role": "table_input",
+          "title": "Sex",
+          "type": "string",
+          "unit": "category"
+        },
+        "age": {
+          "description": "Table age",
+          "minimum": 0,
+          "role": "table_input",
+          "title": "Table age",
+          "type": "integer",
+          "unit": "years"
+        },
+        "probability": {
+          "description": "Annual mortality probability",
+          "maximum": 1,
+          "minimum": 0,
+          "role": "table_input",
+          "title": "Annual mortality probability",
+          "type": "number",
+          "unit": "probability"
+        }
+      },
+      "required": [
+        "table_id",
+        "sex",
+        "age",
+        "probability"
+      ],
+      "title": "MortalityRow",
+      "type": "object"
+    },
+    "Policy": {
+      "additionalProperties": false,
+      "properties": {
+        "entry_age": {
+          "description": "Entry age",
+          "minimum": 0,
+          "role": "input",
+          "title": "Entry age",
+          "type": "integer",
+          "unit": "years"
+        },
+        "sex": {
+          "description": "Sex for mortality table selection",
+          "enum": [
+            "M",
+            "F"
+          ],
+          "role": "input",
+          "title": "Sex for mortality table selection",
+          "type": "string",
+          "unit": "category"
+        },
+        "term": {
+          "description": "Policy term",
+          "exclusiveMinimum": 0,
+          "role": "input",
+          "title": "Policy term",
+          "type": "integer",
+          "unit": "years"
+        },
+        "premium_term": {
+          "description": "Premium payment term",
+          "exclusiveMinimum": 0,
+          "role": "input",
+          "title": "Premium payment term",
+          "type": "integer",
+          "unit": "years"
+        },
+        "sum_insured": {
+          "description": "Sum insured",
+          "minimum": 0,
+          "role": "input",
+          "title": "Sum insured",
+          "type": "number",
+          "unit": "EUR"
+        },
+        "payment_frequency": {
+          "description": "Payments per year",
+          "enum": [
+            1,
+            2,
+            4,
+            12
+          ],
+          "role": "input",
+          "title": "Payments per year",
+          "type": "integer",
+          "unit": "payments/year"
+        }
+      },
+      "required": [
+        "entry_age",
+        "sex",
+        "term",
+        "premium_term",
+        "sum_insured",
+        "payment_frequency"
+      ],
+      "title": "Policy",
+      "type": "object"
+    },
+    "ProjectionYear": {
+      "additionalProperties": false,
+      "properties": {
+        "year": {
+          "description": "Elapsed policy years",
+          "minimum": 0,
+          "role": "trajectory_output",
+          "title": "Elapsed policy years",
+          "type": "integer",
+          "unit": "years"
+        },
+        "benefit_pv": {
+          "description": "Benefit present value including survival benefit",
+          "role": "trajectory_output",
+          "title": "Benefit present value including survival benefit",
+          "type": "number",
+          "unit": "dimensionless"
+        },
+        "annuity_pv_term": {
+          "description": "Annuity due present value over remaining policy term",
+          "role": "trajectory_output",
+          "title": "Annuity due present value over remaining policy term",
+          "type": "number",
+          "unit": "dimensionless"
+        },
+        "annuity_pv_premium_term": {
+          "description": "Annuity due present value over remaining payment term",
+          "role": "trajectory_output",
+          "title": "Annuity due present value over remaining payment term",
+          "type": "number",
+          "unit": "dimensionless"
+        },
+        "reserve_factor": {
+          "description": "Premium paying reserve per unit sum insured",
+          "role": "trajectory_output",
+          "title": "Premium paying reserve per unit sum insured",
+          "type": "number",
+          "unit": "dimensionless"
+        },
+        "reserve": {
+          "description": "Premium paying reserve",
+          "role": "trajectory_output",
+          "title": "Premium paying reserve",
+          "type": "number",
+          "unit": "EUR"
+        },
+        "paid_up_reserve_factor": {
+          "description": "Paid-up reserve factor",
+          "role": "trajectory_output",
+          "title": "Paid-up reserve factor",
+          "type": "number",
+          "unit": "dimensionless"
+        },
+        "minimum_surrender_reserve": {
+          "description": "Reserve for minimum surrender value before deduction",
+          "role": "trajectory_output",
+          "title": "Reserve for minimum surrender value before deduction",
+          "type": "number",
+          "unit": "EUR"
+        },
+        "flexible_phase": {
+          "description": "Flexible phase indicator",
+          "maximum": 1,
+          "minimum": 0,
+          "role": "trajectory_output",
+          "title": "Flexible phase indicator",
+          "type": "integer",
+          "unit": "indicator"
+        },
+        "surrender_deduction": {
+          "description": "Surrender deduction",
+          "role": "trajectory_output",
+          "title": "Surrender deduction",
+          "type": "number",
+          "unit": "EUR"
+        },
+        "surrender_value": {
+          "description": "Surrender value",
+          "role": "trajectory_output",
+          "title": "Surrender value",
+          "type": "number",
+          "unit": "EUR"
+        },
+        "paid_up_sum_insured": {
+          "description": "Paid-up sum insured",
+          "role": "trajectory_output",
+          "title": "Paid-up sum insured",
+          "type": "number",
+          "unit": "EUR"
+        }
+      },
+      "required": [
+        "year",
+        "benefit_pv",
+        "annuity_pv_term",
+        "annuity_pv_premium_term",
+        "reserve_factor",
+        "reserve",
+        "paid_up_reserve_factor",
+        "minimum_surrender_reserve",
+        "flexible_phase",
+        "surrender_deduction",
+        "surrender_value",
+        "paid_up_sum_insured"
+      ],
+      "title": "ProjectionYear",
+      "type": "object"
+    },
+    "Result": {
+      "additionalProperties": false,
+      "properties": {
+        "gross_premium_factor": {
+          "description": "Gross premium factor",
+          "role": "scalar_output",
+          "title": "Gross premium factor",
+          "type": "number",
+          "unit": "dimensionless"
+        },
+        "reserve_premium_factor": {
+          "description": "Reserve premium factor",
+          "role": "scalar_output",
+          "title": "Reserve premium factor",
+          "type": "number",
+          "unit": "dimensionless"
+        },
+        "gross_annual_premium": {
+          "description": "Gross annual premium excluding policy fee and modal surcharge",
+          "role": "scalar_output",
+          "title": "Gross annual premium excluding policy fee and modal surcharge",
+          "type": "number",
+          "unit": "EUR/year"
+        },
+        "modal_premium": {
+          "description": "Premium per payment including policy fee and surcharge",
+          "role": "scalar_output",
+          "title": "Premium per payment including policy fee and surcharge",
+          "type": "number",
+          "unit": "EUR/payment"
+        },
+        "trajectory": {
+          "items": {
+            "$ref": "#/$defs/ProjectionYear"
+          },
+          "minItems": 1,
+          "title": "Trajectory",
+          "type": "array"
+        }
+      },
+      "required": [
+        "gross_premium_factor",
+        "reserve_premium_factor",
+        "gross_annual_premium",
+        "modal_premium",
+        "trajectory"
+      ],
+      "title": "Result",
+      "type": "object"
+    },
+    "Tariff": {
+      "additionalProperties": false,
+      "properties": {
+        "interest_rate": {
+          "description": "Annual valuation interest rate",
+          "role": "parameter",
+          "title": "Annual valuation interest rate",
+          "type": "number",
+          "unit": "fraction/year"
+        },
+        "mortality_table": {
+          "description": "Mortality table identifier",
+          "minLength": 1,
+          "role": "parameter",
+          "title": "Mortality table identifier",
+          "type": "string",
+          "unit": "identifier"
+        },
+        "acquisition_cost_rate": {
+          "description": "Rate applied to the premium total defined by the source formula.",
+          "role": "parameter",
+          "title": "Acquisition cost rate",
+          "type": "number",
+          "unit": "fraction"
+        },
+        "premium_cost_rate": {
+          "description": "Premium related cost rate",
+          "role": "parameter",
+          "title": "Premium related cost rate",
+          "type": "number",
+          "unit": "fraction"
+        },
+        "admin_rate_paying": {
+          "description": "Administration rate during premium payment",
+          "role": "parameter",
+          "title": "Administration rate during premium payment",
+          "type": "number",
+          "unit": "fraction/year"
+        },
+        "admin_rate_after_payment": {
+          "description": "Administration rate after premium payment",
+          "role": "parameter",
+          "title": "Administration rate after premium payment",
+          "type": "number",
+          "unit": "fraction/year"
+        },
+        "admin_rate_paid_up": {
+          "description": "Separate paid-up valuation; not the scheduled end of premium payment.",
+          "role": "parameter",
+          "title": "Administration rate for paid-up valuation",
+          "type": "number",
+          "unit": "fraction/year"
+        },
+        "annual_policy_fee": {
+          "description": "Annual policy fee",
+          "minimum": 0,
+          "role": "parameter",
+          "title": "Annual policy fee",
+          "type": "number",
+          "unit": "EUR/year"
+        },
+        "flex_min_age": {
+          "description": "Minimum age for flexible phase",
+          "minimum": 0,
+          "role": "parameter",
+          "title": "Minimum age for flexible phase",
+          "type": "integer",
+          "unit": "years"
+        },
+        "flex_years": {
+          "description": "Length of flexible final phase",
+          "minimum": 0,
+          "role": "parameter",
+          "title": "Length of flexible final phase",
+          "type": "integer",
+          "unit": "years"
+        }
+      },
+      "required": [
+        "interest_rate",
+        "mortality_table",
+        "acquisition_cost_rate",
+        "premium_cost_rate",
+        "admin_rate_paying",
+        "admin_rate_after_payment",
+        "admin_rate_paid_up",
+        "annual_policy_fee",
+        "flex_min_age",
+        "flex_years"
+      ],
+      "title": "Tariff",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "properties": {
+    "policy": {
+      "$ref": "#/$defs/Policy"
+    },
+    "assumptions": {
+      "$ref": "#/$defs/Assumptions"
+    },
+    "result": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/Result"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "default": null
+    }
+  },
+  "required": [
+    "policy",
+    "assumptions"
+  ],
+  "title": "CalculationCase",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:endowment-seminar:tbox:1.0.0",
+  "x-tbox-version": "1.0.0",
+  "x-model-rules": [
+    "premium_term <= term",
+    "flex_years <= term",
+    "All floating point values must be finite."
+  ]
+}

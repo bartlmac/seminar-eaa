@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools==79.0.1", "wheel==0.46.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "endowment-porting-workshop"
+version = "1.0.0"
+description = "Three-hour English workshop: port one Excel endowment calculator to Python"
+requires-python = ">=3.11,<3.12"
+readme = "README.md"
+dependencies = ["openpyxl==3.1.5", "oletools==0.60.2", "pydantic==2.13.4"]
+
+[project.optional-dependencies]
+dev = ["pytest==9.0.3"]
+gui = ["streamlit==1.67.0"]
+
+[project.scripts]
+workshop = "tools.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["tools*", "ontology*"]
+
+[tool.setuptools.package-data]
+ontology = ["*.json", "*.md"]
+tools = ["vendor/*.js", "vendor/*.txt"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+filterwarnings = ["error", "ignore::pyparsing.warnings.PyparsingDeprecationWarning:oletools\\.olevba"]

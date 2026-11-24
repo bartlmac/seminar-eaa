@@ -1,0 +1,8 @@
+-r requirements.txt
+iniconfig==2.3.0
+packaging==26.2
+pluggy==1.6.0
+pygments==2.20.0
+pytest==9.0.3
+setuptools==79.0.1
+wheel==0.46.3

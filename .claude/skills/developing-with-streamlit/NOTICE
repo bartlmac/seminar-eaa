@@ -1,0 +1,15 @@
+developing-with-streamlit skill
+
+This directory is a copy of the agent skill that ships inside the Streamlit
+Python package, version 1.67.0:
+
+  Source:  https://github.com/streamlit/streamlit
+  Path:    lib/streamlit/.agents/skills/developing-with-streamlit/
+  Notice:  Copyright (c) Streamlit Inc. (2018-2022) Snowflake Inc. (2022-2026)
+  Licence: Apache License, Version 2.0 (see the LICENSE file in this directory)
+
+Changes made for this workshop:
+
+  - SKILL.md was rewritten for the workshop's Streamlit step.
+  - LICENSE and NOTICE were added.
+  - All files under references/ and assets/ are unchanged.
