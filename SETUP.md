@@ -144,11 +144,19 @@ Expected: `Linux`, your Ubuntu distribution name, and a project path under
 `/home/...`. On native Linux, `uname -s` also prints `Linux`, while
 `WSL_DISTRO_NAME` is normally empty.
 
-Open **Extensions** with **Ctrl+Shift+X** and install Microsoft's **Python**
-extension (`ms-python.python`). In WSL, use **Install in WSL: Ubuntu** when
-offered, and check the **WSL: Ubuntu – Installed** section. Development extensions
-must be available in the remote window. Only trust the workspace after checking
-that it is the workshop folder you intended to open.
+Then install the Python extension **in this window**:
+
+1. Open **Extensions** with **Ctrl+Shift+X** and search for `Python`.
+2. Select the entry named exactly **Python**, published by **Microsoft**
+   (`ms-python.python`). Several similarly named entries appear in the list.
+3. On WSL, click **Install in WSL: Ubuntu**. An extension already installed in
+   Windows VS Code still needs this step.
+4. Check that it is listed under **WSL: Ubuntu – Installed**.
+
+Without this step, the **Python: Select Interpreter** command used in section 5
+does not exist. Development extensions must be available in the remote window.
+Only trust the workspace after checking that it is the workshop folder you
+intended to open.
 
 ## 4. Create a Python 3.11 virtual environment
 
@@ -169,6 +177,9 @@ your configured Ubuntu repositories provide Python 3.11, install the matching
 `python3.11-venv` package. Ubuntu releases ship different default Python versions;
 installing `python3` alone does not guarantee 3.11.
 
+If the first command prints `Command 'python3.11' not found`, use Method B. This
+is the normal case on Ubuntu 24.04, which ships Python 3.12.
+
 ### Method B: obtain Python 3.11 with uv
 
 If Python 3.11 is unavailable, this method installs a user-owned Python without
@@ -179,10 +190,13 @@ replacing Ubuntu's system Python. Follow the official
 curl -LsSf https://astral.sh/uv/install.sh -o /tmp/workshop-uv-install.sh
 less /tmp/workshop-uv-install.sh
 sh /tmp/workshop-uv-install.sh
+source "$HOME/.local/bin/env"
 ```
 
-Press `q` to leave `less`. Follow the installer's PATH instructions, or close and
-reopen the terminal. Then return to the project root and run:
+Press `q` to leave `less`. The last line makes `uv` available in the current
+terminal; new terminals find it automatically. If Ubuntu suggests
+`sudo snap install astral-uv`, ignore it: that would install a second copy.
+Then, from the project root, run:
 
 ```bash
 uv --version
@@ -342,11 +356,13 @@ the URL manually. Stop the server with **Ctrl+C**.
 |---|---|
 | WSL cannot start | Check virtualisation, Windows features and restart requirements in Microsoft's WSL guide; involve IT on managed machines. |
 | `wsl -d Ubuntu` cannot find the distribution | Run `wsl --list --verbose` in PowerShell and use the exact listed name. |
+| `sudo` rejects the Linux password | In PowerShell, not in the Linux shell, run `wsl -d Ubuntu -u root`, then `passwd <your-linux-username>`, set a new password and `exit`. |
+| No `Python: Select Interpreter` command | The Python extension is missing in the WSL window. Install it as described in section 3, then run **Developer: Reload Window**. |
 | `code: command not found` in WSL | Check Windows VS Code's PATH option and the WSL extension; reopen the terminal. Alternatively connect through VS Code's WSL command and open the Linux folder. |
 | No `WSL: Ubuntu` flag | Reopen the folder in WSL. Selecting a WSL terminal alone does not change the workspace connection. |
 | Python points to Windows or `/usr/bin/python3` | Select `.venv/bin/python`, activate it in a fresh Linux terminal, or use its explicit path. |
 | `python3.11` unavailable | Use Method B; do not substitute a different minor version. |
-| `uv: command not found` after installation | Apply the installer's PATH instructions or reopen the terminal; check `~/.local/bin/uv`. |
+| `uv: command not found` after installation | Run `source "$HOME/.local/bin/env"` or reopen the terminal; check `~/.local/bin/uv`. |
 | `ensurepip`/`venv` missing | Install the matching distro venv package when available, or use the seeded uv method. |
 | “externally managed environment” from pip | You are probably installing into system Python. Use `.venv/bin/python -m pip`. |
 | A pinned package cannot be found or installed | Verify Python 3.11, CPU architecture, configured package index and network access. Save the exact error for the tutor; do not silently remove pins or change versions. |
