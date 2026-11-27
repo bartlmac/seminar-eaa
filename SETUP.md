@@ -351,15 +351,17 @@ the WSL server through localhost. If automatic browser opening fails, paste
 the URL manually. Stop the server with **Ctrl+C**.
 
 **To read a generated HTML file**, such as `derived/knowledge.html` after the
-extraction step: on Windows, open its folder in Windows Explorer from the Linux
-terminal, then double-click the file. Clicking it in VS Code shows only its
-source text.
+extraction step: on Windows, run this in the VS Code terminal from the project
+root. It opens the file in your default Windows browser. Clicking the file in
+VS Code shows only its source text.
 
 ```bash
-explorer.exe derived
+explorer.exe "$(wslpath -w derived/knowledge.html)"
 ```
 
-On native Linux, open the file from your file manager.
+Alternatively, `explorer.exe derived` opens the folder in Windows Explorer;
+double-click the file there. On native Linux, open the file from your file
+manager.
 
 After a VS Code update, the first `code .` reinstalls VS Code Server in WSL.
 This needs internet access and about a minute; extensions and `.venv` remain.
