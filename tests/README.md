@@ -66,7 +66,7 @@ produce explained module skips. Errors in existing code fail.
 | `gui/` | Page smoke test: Calculate, four metrics, table and CSV control |
 | `reference_workbooks/` | Permanent tutor-controlled Excel references; preserved on reset |
 | `reference.py` | Source-specific cell bindings, explicit export command and read-only reference loader; no tariff arithmetic |
-| `tolerances.py` | Absolute tolerances: EUR 1e-8, other floats 1e-10; integers exact |
+| `tolerances.py` | Absolute tolerances: EUR 1e-6, other floats 1e-8; integers exact |
 | `../derived/references/` | Generated exports, expected values and inventory for the current run; cleared on reset |
 
 With `-s --excel-verbose`, each case prints an aligned table with separate year,
