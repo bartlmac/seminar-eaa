@@ -261,28 +261,37 @@ or authenticate these VS Code extensions.
 
 ### Option A: Codex
 
-1. Open Extensions and install **Codex** published by **OpenAI**
-   (`openai.chatgpt`), using the link in the
+1. Open **Extensions** with **Ctrl+Shift+X** and install **Codex** published by
+   **OpenAI** (`openai.chatgpt`). On WSL, use **Install in WSL: Ubuntu**. See the
    [official OpenAI IDE documentation](https://learn.chatgpt.com/docs/codex/ide).
-2. Open the Codex sidebar, or use **Ctrl+Shift+P → Codex: Open Codex Sidebar**.
-3. Follow its sign-in flow with the account authorised for your workshop.
-   Confirm that you can send a prompt. Account entitlements and organisation
-   policies determine access; use the authentication options offered by your
-   installation if your organisation uses a different configuration.
-4. Use a local session for this folder. Ask Codex to report its working directory,
-   Linux environment and `.venv/bin/python` version before doing workshop work.
+2. Open the Codex sidebar via its icon, or use
+   **Ctrl+Shift+P → Codex: Open Codex Sidebar**.
+3. Sign in with the account authorised for your workshop and confirm that you
+   can send a prompt. Account entitlements and organisation policies determine
+   access; use the authentication options offered by your installation if your
+   organisation uses a different configuration.
+4. Use a local session for this folder. Ask Codex to report its working
+   directory, Linux environment and `.venv/bin/python` version before doing
+   workshop work.
 
 The WSL connection and Linux path checks follow
 [OpenAI's WSL guidance](https://learn.chatgpt.com/docs/windows/wsl).
 
 ### Option B: Claude Code
 
-1. Open Extensions and install **Claude Code** published by **Anthropic**
-   (`anthropic.claude-code`), following the
+1. Open **Extensions** with **Ctrl+Shift+X** and install **Claude Code**
+   published by **Anthropic** (`anthropic.claude-code`). On WSL, use
+   **Install in WSL: Ubuntu**. See the
    [official Claude Code VS Code instructions](https://code.claude.com/docs/en/vs-code).
-2. Open the Claude Code panel via its icon or the **Claude Code** commands in
-   **Ctrl+Shift+P**. Sign in through the browser with your approved account.
-3. Verify that it can read this project and run `.venv/bin/python` in Linux.
+2. Open the Claude Code panel via its icon, or use **Ctrl+Shift+P** and choose
+   one of the **Claude Code** commands.
+3. Sign in through the browser with the account authorised for your workshop
+   and confirm that you can send a prompt. Account entitlements and organisation
+   policies determine access; use the authentication options offered by your
+   installation if your organisation uses a different configuration.
+4. Use a session for this folder. Ask Claude Code to report its working
+   directory, Linux environment and `.venv/bin/python` version before doing
+   workshop work.
 
 The extension bundles its chat runtime; a separate CLI installation is needed
 only if you also want to run `claude` as a terminal command. Use the extension
